@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  api:
+    image: minha-api
+    environment:
+      - ConnectionStrings__SqlServer=${SQLSERVER_CONNECTION}
+    depends_on:
+      - sqlserver
+    networks:
+      - app_network
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "P@ssw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - app_network
+
+networks:
+  app_network:
