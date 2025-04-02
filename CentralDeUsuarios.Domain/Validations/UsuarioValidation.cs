@@ -23,29 +23,29 @@ namespace CentralDeUsuarios.Domain.Validations
         {
             _dominioEmailValidation = new DominioEmailValidation();
 
-            RuleFor(x => x.Id)
+            RuleFor(u => u.Id)
                 .NotEmpty().WithMessage("Id é obrigatório!");
 
-            RuleFor(x => x.Nome)
+            RuleFor(u => u.Nome)
                 .NotEmpty().WithMessage("Nome é obrigatório!")
                 .Length(8, 150).WithMessage("Nome deve conter entre 8 a 150 caracteres!")
                 .Matches(@"^[A-Za-zÀ-ÿ' ]+$").WithMessage("Nome contém caracteres inválidos!")
                 .Must(nome => !Regex.IsMatch(nome, @"\s{2,}")).WithMessage("Nome não pode conter espaços consecutivos!");
 
-            _ = RuleFor(x => x.Email)
+            _ = RuleFor(u => u.Email)
                 .NotEmpty().WithMessage("Email é obrigatório!")
                 .EmailAddress().WithMessage("Email inválido!")
                 .Must(email => _dominioEmailValidation.Validar(email)).WithMessage("Domínio de email inválido!");
 
-            RuleFor(x => x.Senha)
+            RuleFor(u => u.Senha)
                 .NotEmpty().WithMessage("Senha é obrigatória!")
                 .Length(8, 20).WithMessage("Senha deve conter entre 8 a 20 caracteres!")
                 .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,15}$")
                 .WithMessage("A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.");
 
-            RuleFor(x => x.ConfirmacaoSenha)
+            RuleFor(u => u.ConfirmacaoSenha)
                 .NotEmpty().WithMessage("Confirmação de senha é obrigatória!")
-                .Equal(x => x.Senha).WithMessage("As senhas não coincidem!");
+                .Equal(u => u.Senha).WithMessage("As senhas não coincidem!");
         }
     }
 }

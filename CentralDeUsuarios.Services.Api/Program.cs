@@ -1,7 +1,23 @@
 using CentralDeUsuarios.Infra.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Obter a string de conexão do MongoDB a partir da variável de ambiente
+var mongoConnectionString = Environment.GetEnvironmentVariable("MONGODB_CONNECTION_STRING");
+
+// Configurar o MongoDB como singleton (injeção de dependência)
+builder.Services.AddSingleton<IMongoClient>(sp => new MongoClient(mongoConnectionString));
+
+
+// Opcional: se quiser injetar o banco já selecionado
+builder.Services.AddSingleton(sp =>
+{
+    var client = sp.GetRequiredService<IMongoClient>();
+return client.GetDatabase("ControleDeUsuariosTest");
+});
 
 // Add services to the container.
 
@@ -18,6 +34,8 @@ builder.Services.AddSwaggerGen();
 // Obtém a connection string da variável de ambiente
 var connectionString = Environment.GetEnvironmentVariable("SQLSERVER_CONNECTION")
                        ?? builder.Configuration.GetConnectionString("SqlServer");
+
+
 
 builder.Services.AddDbContext<SqlServerContext>(options =>
     options.UseSqlServer(connectionString)

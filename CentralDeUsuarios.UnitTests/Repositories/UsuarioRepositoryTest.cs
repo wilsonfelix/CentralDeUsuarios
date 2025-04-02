@@ -25,7 +25,7 @@ namespace CentralDeUsuarios.UnitTests.Repositories
         }
 
         [Fact(Skip = "Não implementado.")] // Corrigindo o atributo para Fact
-        public void testeDelete()
+        public void TesteDelete()
         {
 
         }

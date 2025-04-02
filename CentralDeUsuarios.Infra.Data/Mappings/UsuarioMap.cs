@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 namespace CentralDeUsuarios.Infra.Data.Mappings
 {
     /// <summary>
-    /// Classe de mapeamento ORM da entidade usuário
+    /// Classe de mapeamento ORM da entidade Usuario
     /// </summary>
     public class UsuarioMap : IEntityTypeConfiguration<Usuario>
     {
         public void Configure(EntityTypeBuilder<Usuario> builder)
         {
-            builder.HasIndex(x => x.Email).IsUnique();
+            builder.HasIndex(u => u.Email).IsUnique();
         }
     }
 }

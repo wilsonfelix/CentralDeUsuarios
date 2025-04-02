@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CentralDeUsuarios.UnitTests": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "SQLSERVER_CONNECTION_TEST": "Data Source=.,1433;Initial Catalog=BD_CentralDeUsuariosTest;Persist Security Info=True;User ID=sa;Password=P@ssw0rd;Pooling=False;Encrypt=False;Trust Server Certificate=False"
+      }
+    }
+  }
+}
